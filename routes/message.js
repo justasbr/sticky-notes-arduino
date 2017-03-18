@@ -5,6 +5,11 @@ var router = express.Router();
 
 var words = ["Apple", "Orange", "Banana", "Cherry", "One", "Two", "Three", "Four", "Bike", "Car"];
 
+String.prototype.capitalizeFirstLetter = function () {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+
 function pickRandom(arr) {
   if (arr.length) {
     return arr[Math.floor(Math.random() * arr.length)];
@@ -22,8 +27,12 @@ function getRandomPhrase(n) {
     phrase += getRandomWord();
     phrase += " ";
   }
+  phrase = phrase.trim();
+  phrase = phrase.toLowerCase();
+  phrase = phrase.capitalizeFirstLetter();
   return phrase;
 }
+
 router.get('/', function (req, res, next) {
   res.send(getRandomPhrase(5));
 });
